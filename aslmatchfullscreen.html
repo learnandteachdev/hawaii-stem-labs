@@ -55,8 +55,9 @@ console.log("Game by Hawaiʻi STEM Labs");
 	function startTimer() {
  	 	timerInterval = setInterval(() => {
     	seconds++;
-		if(seconds==60){
+		if(seconds==30){
 			stopTimer();
+			alert("Sorry, please try again! Refresh the page to play again!");
 		}
    		document.getElementById("svg-timer").textContent = `Time: ${seconds}s`;
   		}, 1000);
@@ -233,6 +234,8 @@ cardIDs.forEach((id, index) => {
 let firstCard = null;
 let secondCard = null;
 let lockBoard = false;
+let totalMatches = 6;
+let currentMatches = 0;
 
 document.querySelectorAll("g[data-name]").forEach(card => {
 	//console.log(card);
@@ -253,6 +256,7 @@ document.querySelectorAll("g[data-name]").forEach(card => {
       if (isMatch) {
         firstCard.classList.add("matched");
         secondCard.classList.add("matched");
+		currentMatches++;
         resetBoard();
       } else {
         setTimeout(() => {
@@ -262,7 +266,11 @@ document.querySelectorAll("g[data-name]").forEach(card => {
         }, 1000);
       }
     }
-  });
+	if(currentMatches===totalMatches){
+		alert("Congratulations!  You matched all the ASL signs!  Refresh the page to play again!");
+		stopTimer();
+	}
+});
 });
 
 	function flipCard(card) {
